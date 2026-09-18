@@ -1,0 +1,67 @@
+# Income vs. Happiness Linear Regression Analysis
+
+An exploratory data analysis (EDA) project demonstrating the empirical relationship between individual or regional **Income** and self-reported **Happiness**. This repository provides an end-to-end Python workflow utilizing Pandas, Matplotlib, and generic data manipulation modules to inspect, summarize, and visualize numeric features.
+
+---
+
+## 📌 Project Overview
+
+Understanding the correlation between economic standing and personal well-being is a fundamental research topic in socioeconomic modeling. This project analyzes a dataset containing **498 observations** to investigate how income variations influence happiness metrics.
+
+### Key Highlights
+* **Data Cleansing**: Verification of duplicate entries, missing values, and null trends.
+* **Descriptive Statistics**: Evaluation of central tendencies, dispersion, and quartiles.
+* **Univariate Analysis**: Histograms mapping the distribution patterns of `income` and `happiness`.
+
+---
+
+## 📊 Dataset Summary
+
+The raw dataset (`income_data.csv`) comprises **498 rows** and **3 columns**:
+
+| Column Name | Data Type | Description |
+| :--- | :--- | :--- |
+| `Unnamed: 0` | `int64` | Observation Index / Row identifier |
+| `income` | `float64` | Measured income level (expressed in standardized/scaled units) |
+| `happiness` | `float64` | Self-reported happiness score |
+
+### Statistical Metrics
+
+| Metric | Income | Happiness |
+| :--- | :--- | :--- |
+| **Count** | 498 | 498 |
+| **Mean** | 4.4669 | 3.3929 |
+| **Std Dev** | 1.7375 | 1.4328 |
+| **Min** | 1.5063 | 0.2660 |
+| **Median (50%)** | 4.4237 | 3.4725 |
+| **Max** | 7.4815 | 6.8634 |
+
+---
+
+## 📈 Exploratory Data Analysis & Visualizations
+
+The univariate analysis compares the continuous distributions of both target variables:
+
+* **Income Distribution**: Exhibits a relatively balanced distribution spanning across continuous values between **1.5** and **7.5**.
+* **Happiness Distribution**: Follows a standard normal-like distribution centered around a mean score of **3.39**.
+Income Histogram                    Happiness Histogram
+   ┌───────────┐                        ┌───────────┐
+100│    ███    │                    100 │    ███    │
+80 │  ███████  │                     80 │  ███████  │
+60 │ █████████ │                     60 │ █████████ │
+   └───────────┘                        └───────────┘
+---
+
+## 🧮 Theoretical Background
+
+The analytical pipeline sets the stage for fitting a simple linear regression model of the form:
+
+$$y = \beta_0 + \beta_1 x + \epsilon$$
+
+Where:
+* $y$ represents the **Happiness** dependent variable.
+* $x$ represents the **Income** independent feature.
+* $\beta_0$ and $\beta_1$ represent the intercept and slope coefficients, respectively.
+* $\epsilon$ represents the unobserved random error term.
+
+---
