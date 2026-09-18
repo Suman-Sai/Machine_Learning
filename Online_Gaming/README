@@ -1,0 +1,42 @@
+# 🕹️ Gaming Analytics: Player Engagement & Segmentation
+
+An end-to-end data analysis and machine learning project focused on exploring player behavior, game difficulty, and monetization metrics in online gaming, leading to the predictive modeling of player **Engagement Levels** (Low, Medium, High).
+
+---
+
+## 📌 Project Overview
+
+This repository contains a exploratory data analysis and modeling workflow for a player behavioral dataset containing over 40,000 records. The goal is to uncover key patterns behind player retention, session durations, and in-game purchase behaviors, and to build a predictive framework for categorizing player engagement.
+
+### 🔑 Key Objectives
+* **Data Profiling & Quality Check:** Examine data shape, column data types, missing values, and duplication.
+* **Exploratory Data Analysis (EDA):** Perform univariate, bivariate, and multivariate analysis on player demographics, genres, and play metrics.
+* **Predictive Modeling Ready:** Analyze target variable distributions (`EngagementLevel`) to lay the ground for classification pipelines.
+
+---
+
+## 📊 Dataset Summary
+
+* **Total Records:** 40,034 rows × 13 features
+* **Missing & Duplicate Values:** 0 missing values, 0 duplicate records
+* **Target Feature:** `EngagementLevel` (Multiclass: `Low`, `Medium`, `High`)
+
+### Feature Overview
+
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| `PlayerID` | Integer | Unique identifier for each player |
+| `Age` | Integer | Player age (range: 15 - 49 years) |
+| `Gender` | Categorical | Gender identity (`Male`, `Female`) |
+| `Location` | Categorical | Geographic region (`USA`, `Europe`, `Other`, etc.) |
+| `GameGenre` | Categorical | Preferred genre (`Sports`, `Action`, `Strategy`, etc.) |
+| `PlayTimeHours` | Float | Cumulative playtime in hours |
+| `InGamePurchases` | Binary/Int | Purchase indicator (`0` = No, `1` = Yes) |
+| `GameDifficulty` | Categorical | Selected difficulty level (`Easy`, `Medium`, `Hard`) |
+| `SessionsPerWeek` | Integer | Weekly gameplay frequency |
+| `AvgSessionDurationMinutes` | Integer | Average duration of a gaming session |
+| `PlayerLevel` | Integer | Current in-game level attained |
+| `AchievementsUnlocked` | Integer | Total achievements completed |
+| `EngagementLevel` | Categorical | **Target Variable**: `Low`, `Medium`, `High` |
+
+---
