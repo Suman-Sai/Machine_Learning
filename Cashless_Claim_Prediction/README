@@ -1,0 +1,66 @@
+# 🏥 Cashless Health Insurance Claim Amount Prediction & Quality Pipeline
+A comprehensive data quality audit, feature engineering, and automated cleaning pipeline designed for health insurance claim datasets. This project processes 41+ domain-specific medical and financial features to prepare raw, noisy claim records for machine learning and predictive modeling.
+
+---
+
+## 🔬 Overview
+
+Healthcare claim datasets often suffer from data quality issues such as missing values, extreme outliers (e.g., age > 100 or negative BMIs), logical inconsistencies (approved amounts exceeding claimed amounts), and formatting errors. 
+
+This repository provides an end-to-end data processing workflow that:
+1. Conducts an automated data quality checklist and statistical audit.
+2. Implements business logic domain constraints on medical and financial metrics.
+3. Imputes missing data appropriately across numerical and categorical features.
+4. Generates time-series features for downstream predictive modeling.
+
+---
+
+## 📊 Dataset Architecture
+
+The underlying dataset (`cashless_claim_prediction.csv`) contains **5,000 records** and **41 raw features**, spanning across patient demographics, clinical details, hospital attributes, policy constraints, and billing metrics.
+
+### Key Data Categories
+* **Patient Demographics:** `age`, `gender`, `city_tier`, `bmi`, `smoker_flag`, `comorbidity_score`
+* **Clinical Metrics:** `diagnosis_category`, `severity_level`, `procedure_complexity_score`, `icu_days`, `length_of_stay_days`
+* **Hospital Metadata:** `hospital_id`, `hospital_type`, `hospital_tier`, `hospital_historical_approval_rate`
+* **Policy Details:** `policy_type`, `sum_insured`, `remaining_sum_insured`, `copay_percent`, `deductible_amount`
+* **Financial Details (Target/Cost):** `claimed_amount`, `room_charges`, `doctor_fees`, `medicine_charges`, `approved_amount`
+
+---
+
+## 🔍 Data Quality Audit
+
+Initial inspections revealed several data integrity anomalies requiring systematic correction:
+
+| Metric / Feature | Issue Identified | Identified Rate / Count |
+| :--- | :--- | :--- |
+| **Duplicate Records** | Exact duplicate rows across features | 96 records |
+| **Missing Values** | Top missing features: `bmi`, `document_quality_score`, `smoker_flag` | Up to 4.42% missing |
+| **Invalid Age** | Values outside valid range (`age < 0` or `age > 100`) | 41 entries |
+| **Invalid BMI** | Extreme values outside realistic body mass index limits (`< 10` or `> 60`) | 26 entries |
+| **Negative Amounts** | Invalid negative or zero claims (`claimed_amount <= 0`) | 20 entries |
+| **Copay Outliers** | Percentage values outside valid bounds (`< 0%` or `> 100%`) | 6 entries |
+
+---
+
+## 🛠️ Data Cleaning & Transformation Pipeline
+
+The core function `clean_claims_data()` automates data remediation through business-logic enforcement:
+
+1. **Deduplication:** Removes exact duplicate records and resets index.
+2. **Temporal Feature Engineering:** Parses `claim_submitted_date` to derive calendar features (`claim_month`, `claim_quarter`, `claim_dayofweek`).
+3. **Gender Normalization:** Maps inconsistent gender strings (`m`, `male`, `f`, `female`, `na`) to standardized categories (`Male`, `Female`, `Other`, `Unknown`).
+4. **Domain Boundary Clipping & Invalidation:**
+   * Clips `age` to $[0, 90]$ years.
+   * Sets unrealistic `bmi` values ($<10$ or $>60$) to `NaN` for imputation.
+   * Clips `copay_percent` to $[0, 100]\%$.
+5. **Financial & Logical Validation:**
+   * Invalidates `claimed_amount <= 0`.
+   * Enforces non-negative values for sub-charges (`room_charges`, `doctor_fees`, `medicine_charges`).
+   * Caps `remaining_sum_insured` to not exceed `sum_insured`.
+   * Enforces business ceiling: $\text{approved\_amount} \le \min(\text{claimed\_amount}, \text{remaining\_sum\_insured})$.
+6. **Smart Imputation:**
+   * **Numerical Columns:** Imputed using **Median** strategy.
+   * **Categorical Columns:** Imputed using **'Unknown'** category.
+
+---              # Python environment dependencies
