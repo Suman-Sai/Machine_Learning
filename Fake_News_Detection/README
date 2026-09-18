@@ -1,0 +1,61 @@
+# Fake News Detection using Machine Learning & RNN
+
+An end-to-end Natural Language Processing (NLP) repository for classifying news articles as **Real** or **Fake**. This project benchmarks classical Machine Learning algorithms combined with TF-IDF vectorization and SMOTE against a Deep Learning Recurrent Neural Network (LSTM) model.
+
+---
+
+## **Project Overview**
+
+With the rapid spread of misinformation across digital platforms, automated fake news detection has become essential. This project explores textual analysis on news articles through two main approaches:
+1. **Classical Machine Learning Pipeline**: Cleaning text, TF-IDF feature extraction, SMOTE class balancing, and training Naive Bayes, Logistic Regression, Decision Tree, and Random Forest models.
+2. **Deep Learning Pipeline**: Tokenization, sequence padding, and a sequential LSTM (RNN) model designed to capture word sequence dependencies.
+
+---
+
+## **Dataset Structure**
+
+The project utilizes two main CSV files containing news data (`True.csv` and `Fake.csv`):
+
+| Feature | Type | Description |
+| :--- | :--- | :--- |
+| `title` | String | The headline of the news article. |
+| `text` | String | The main body text of the article. |
+| `subject` | String | Category/domain of the article (e.g., politics, world news). |
+| `date` | String | Publication date. |
+| `label` | Integer | Class label: `1` for Real News, `0` for Fake News. |
+
+---
+
+## **Key Features & Methodology**
+
+* **Text Preprocessing**: Lowercasing, removal of URLs, HTML tags, punctuation, numbers, and brackets via Regular Expressions (`re`).
+* **Feature Extraction**: TF-IDF Vectorization (`max_features=5000`) for traditional models and Keras Tokenizer (`num_words=10000`, `max_len=300`) for deep learning.
+* **Class Imbalance Handling**: Applied **SMOTE** (Synthetic Minority Over-sampling Technique) on training splits to balance target classes.
+* **Model Training & Evaluation**: Evaluated using Precision, Recall, F1-Score, and Accuracy.
+
+---
+
+## **Model Performance & Comparison**
+
+### **Classical Machine Learning Models (TF-IDF + SMOTE)**
+
+| Model | Accuracy | Fake Precision | Fake Recall | Fake F1-Score | Real Precision | Real Recall | Real F1-Score |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Naive Bayes** | 92.90% | 0.9328 | 0.9328 | 0.9328 | 0.9246 | 0.9246 | 0.9246 |
+| **Logistic Regression** | 98.60% | 0.9888 | 0.9846 | 0.9867 | 0.9828 | 0.9875 | 0.9851 |
+| **Decision Tree** | 99.42% | 0.9939 | 0.9952 | 0.9945 | 0.9946 | 0.9931 | 0.9938 |
+| **Random Forest** | **99.73%** | **0.9981** | **0.9968** | **0.9975** | **0.9965** | **0.9979** | **0.9972** |
+
+### **Deep Learning Model (LSTM / RNN)**
+
+* **Architecture**: Embedding Layer (dim=128) $\rightarrow$ LSTM (128 units, dropout=0.2) $\rightarrow$ Dense (64, Relu) $\rightarrow$ Dropout (0.5) $\rightarrow$ Dense (1, Sigmoid)
+* **RNN Model Accuracy**: **98.98%**
+
+---
+
+## **Installation & Setup**
+
+1. **Clone the Repository**:
+   ```bash
+   git clone [https://github.com/your-username/fake-news-detection.git](https://github.com/your-username/fake-news-detection.git)
+   cd fake-news-detection
